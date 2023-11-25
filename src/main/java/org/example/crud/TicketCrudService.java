@@ -1,15 +1,14 @@
 package org.example.crud;
 
-import org.example.entities.Client;
-import org.example.entities.Planet;
+import org.example.entities.Ticket;
 import org.example.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-public class PlanetCrud implements Crud<Planet> {
+public class TicketCrudService implements Crud<Ticket> {
     @Override
-    public void persist(Planet entity) {
+    public void persist(Ticket entity) {
         try (HibernateUtil instance = HibernateUtil.getInstance();
              SessionFactory sessionFactory = instance.getSessionFactory();
              Session session = sessionFactory.openSession()) {
@@ -20,16 +19,16 @@ public class PlanetCrud implements Crud<Planet> {
     }
 
     @Override
-    public Planet getById(Object id) {
+    public Ticket getById(Object id) {
         try (HibernateUtil instance = HibernateUtil.getInstance()){
-             SessionFactory sessionFactory = instance.getSessionFactory();
-             Session session = sessionFactory.openSession();
-            return session.get(Planet.class, id);
+            SessionFactory sessionFactory = instance.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            return session.get(Ticket.class, id);
         }
     }
 
     @Override
-    public void merge(Planet entity) {
+    public void merge(Ticket entity) {
         try (HibernateUtil instance = HibernateUtil.getInstance();
              SessionFactory sessionFactory = instance.getSessionFactory();
              Session session = sessionFactory.openSession()) {
@@ -46,9 +45,9 @@ public class PlanetCrud implements Crud<Planet> {
              SessionFactory sessionFactory = instance.getSessionFactory();
              Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            Planet planet = session.get(Planet.class, id);
-            if (planet != null) {
-                session.delete(planet);
+            Ticket ticket = session.get(Ticket.class, id);
+            if (ticket != null) {
+                session.delete(ticket);
                 transaction.commit();
             }
         } catch (Exception e) {

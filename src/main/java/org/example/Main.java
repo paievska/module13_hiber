@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.crud.*;
 import org.example.entities.Client;
+import org.example.entities.Planet;
 import org.example.utils.FlywayMigration;
 import org.example.utils.HibernateUtil;
 import org.hibernate.SessionFactory;
@@ -11,7 +12,8 @@ public class Main {
         try(HibernateUtil instance = HibernateUtil.getInstance();
         SessionFactory sessionFactory = instance.getSessionFactory()){
             FlywayMigration.flywayMigration();
-            ClientCrud clientCrud = new ClientCrud();
+            ClientCrudService clientCrud = new ClientCrudService();
+            PlanetCrudService planetCrudService = new PlanetCrudService();
 
             Client newClient = new Client();
             newClient.setName("Mary Key");
@@ -25,6 +27,18 @@ public class Main {
             System.out.println("Replace name");
             clientCrud.remove(client.getId());
             System.out.println("Remove client by id");
+
+            Planet newPlanet = new Planet();
+            newPlanet.setId("UR");
+            newPlanet.setName("Uran");
+            planetCrudService.persist(newPlanet);
+            System.out.println("Add new planet");
+
+            Planet planet = planetCrudService.getById(4);
+
+            planet.setName("Moon");
+            planetCrudService.merge(planet);
+            System.out.println("Replace planet");
         }
     }
 }

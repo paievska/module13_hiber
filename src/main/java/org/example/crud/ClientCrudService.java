@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-public class ClientCrud implements Crud<Client> {
+public class ClientCrudService implements Crud<Client> {
     @Override
     public void persist(Client entity) {
         try (HibernateUtil instance = HibernateUtil.getInstance();
